@@ -1,0 +1,17 @@
+.walletWrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9em;
+    gap: 4vh;
+  }
+  
+  .walletButton {
+    background: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 15px;
+    font-size: 0.7em;
+  }
+  

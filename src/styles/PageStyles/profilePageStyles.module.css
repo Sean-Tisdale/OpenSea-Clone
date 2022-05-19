@@ -1,0 +1,66 @@
+.nftPageWrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: 7vw;
+    margin-top: 4vw;
+    gap: 6vw;
+    flex-wrap: nowrap;
+    }
+    
+    .cardWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 22vw;
+    overflow: hidden;
+    text-align: left;
+    border: black solid 2px;
+    border-radius: 15px;
+    }
+    
+    .image {
+        height: 80%;
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+    
+    .name {
+        font-weight: bold;
+    padding-left: 2vw;
+    padding-top: 1vw;
+    
+    }
+    
+    .description {
+        font-weight: bold;
+        padding-left: 2vw;
+    padding-top: 1vw;
+    }
+
+    .infoWrapper {
+        display: flex;
+        flex-direction: column;
+        width: 45vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+        border: 2px solid black;
+        gap: 2vh;
+        line-height: 7vh;
+        padding: 2%;
+        border-radius: 15px;
+        font-weight: bold;
+    }
+
+    .linkTag {
+        text-decoration: underline;
+    }
+
+    .sellButton {
+        background: none;
+        height: 5vh;
+        width: 5vw;
+        margin-top: 25vh;
+        cursor: pointer;
+        border-radius: 15px;
+    }

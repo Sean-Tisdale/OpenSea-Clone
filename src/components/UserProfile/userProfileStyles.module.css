@@ -1,0 +1,39 @@
+.profileWrapper {
+display: flex;
+flex-direction: row;
+margin-left: 7vw;
+margin-top: 4vw;
+gap: 10vw;
+flex-wrap: wrap;
+}
+
+.cardWrapper {
+display: flex;
+flex-direction: column;
+height: 60vh;
+width: 22vw;
+overflow: hidden;
+text-align: left;
+border: black solid 2px;
+border-radius: 15px;
+}
+
+.image {
+    height: 80%;
+    width: 100%;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+}
+
+.name {
+    font-weight: bold;
+padding-left: 2vw;
+padding-top: 1vw;
+
+}
+
+.description {
+    font-weight: bold;
+    padding-left: 2vw;
+padding-top: 1vw;
+}
