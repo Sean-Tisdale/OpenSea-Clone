@@ -12,8 +12,8 @@ export const injectedConnector = new InjectedConnector({
 })
 
 function Wallet() {
-   const { chainId, activate, active, library, account } = useWeb3React<Web3Provider>()
-  const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, authenticate, isAuthenticated, isAuthenticating, logout  } = useMoralis()
+   const { chainId, activate, library, account } = useWeb3React<Web3Provider>()
+  const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, authenticate, isAuthenticated, logout  } = useMoralis()
   const [accountNum, setAccountNum] = useState<string>(
     account 
       ? `${account.substring(0, 4)}...${account.substring(account.length - 4)}`
@@ -84,8 +84,7 @@ function Wallet() {
     const connectorId = window.localStorage.getItem("connectorId")
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
       enableWeb3({ provider: connectorId as any})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, isWeb3Enabled])
+    }, [isAuthenticated, isWeb3Enabled])
     return (
           <>
             { account && isAuthenticated ? (

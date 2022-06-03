@@ -1,56 +1,87 @@
-import { useRouter } from "next/router"
-import { useEffect, useRef } from "react"
-import NavBar from "../../components/NavBar/navBar"
-import GetUserData from "../../lib/Hooks/getUserData"
-import styles from '../../styles/PageStyles/profilePageStyles.module.css'
-import { useWeb3React } from "@web3-react/core"
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import NavBar from '../../components/NavBar/navBar'
+import styles from '../../styles/PageStyles/pageStyles.module.css'
+import { useWeb3React } from '@web3-react/core'
+import { UseAppContext } from '../../context/useContext'
+import { UseMoralisHooks } from '../../lib/Hooks/useMoralisHooks'
 
 function ProfilePageDetails() {
-    const {account} = useWeb3React()
-    const router = useRouter()
-    const query = router.query
-    
-    const token_id = query?.id?.toString() 
+  const { account } = useWeb3React()
+  const [price, setPrice] = useState<number>()
 
-    const nft = GetUserData()
+  const { sellOrder } = UseMoralisHooks()
 
-     const state = useRef(nft?.nftData)
+  const { nftData } = UseAppContext()
 
-const currentNft: any[] = []
+  const router = useRouter()
+  const query = router.query
 
- state?.current?.map( (data: any) => {
-    if(token_id === data?.tokenId) {
-return currentNft.push(data)
-}
-}) 
+  const token_id = query?.id?.toString()
+
+  let tokenAddress: string
+  let tokenId: string
+  let tokenType: string
+
+  const handleChange = (e: any) => {
+    e.preventDefault()
+    setPrice(e.target.value)
+  }
+
+  const handleClick = async () => {
+    await sellOrder(tokenAddress, tokenId, tokenType, price, account)
+  }
 
   return (
     <>
-    <NavBar/>
-    <div className={styles.nftPageWrapper} >
-    {
-   currentNft?.map((data: any) => (
-       <>
-      <div className={styles.cardWrapper}>
-      <img className={styles.image} src={data?.image}/>
-      <div className={styles.name} >{data?.name}</div>
-       <div className={styles.description} >{data?.description}</div>
-   </div>
-   <button className={styles.sellButton} >Sell</button>
-   <div className={styles.infoWrapper} >
-   <div>Token ID: {data?.tokenId}</div>
-   <div>Contract Address: {data?.contractAddress}</div>
-   <div>Token Type: {data?.tokenType}</div>
-   <div>Owner: {data?.owner}</div>
-   <div>Collection: {data?.collectionName}</div>
-   <a href={data?.openSeaLink} target="_blank" className={styles.linkTag}>OpenSea Link</a>
-   </div>
-   </>
-    ))}
- </div> 
- </>  
+      <NavBar />
+      <div className={styles.nftPageWrapper}>
+        {nftData?.map(
+          (data: any) =>
+            token_id === data?.token_id && (
+              <>
+                <div key={token_id} className={styles.cardWrapper}>
+                  <img className={styles.image} src={data?.image_url} />
+                  <div className={styles.name}>{data?.name}</div>
+                  <div className={styles.description}>{data?.description}</div>
+                </div>
+                <div className={styles.sellWrapper}>
+                  <button className={styles.sellButton} onClick={handleClick}>
+                    Sell
+                  </button>
+                  <input
+                    className={styles.priceInput}
+                    onChange={handleChange}
+                    placeholder='Price'
+                  />
+                </div>
+                <div className={styles.infoWrapper}>
+                  <div>On Sale? {data?.is_presale ? 'Yes' : 'No'}</div>
+                  <div>Token ID: {(tokenId = data?.token_id)}</div>
+                  <div>
+                    Contract Address:{' '}
+                    {(tokenAddress = data?.asset_contract?.address)}
+                  </div>
+                  <div>
+                    Token Type:{' '}
+                    {(tokenType = data?.asset_contract?.schema_name)}
+                  </div>
+                  <div>Owner: {data?.owner?.address}</div>
+                  <div>Collection: {data?.collection?.name}</div>
+                  <a
+                    href={data?.permalink}
+                    target='_blank'
+                    className={styles.linkTag}
+                  >
+                    OpenSea Link
+                  </a>
+                </div>
+              </>
+            )
+        )}
+      </div>
+    </>
   )
-
 }
 
 export default ProfilePageDetails

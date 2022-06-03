@@ -1,4 +1,7 @@
 {
-    "editor.formatOnSave": true,
-    "diffEditor.ignoreTrimWhitespace": false
+  "editor.formatOnSave": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.codeLens": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

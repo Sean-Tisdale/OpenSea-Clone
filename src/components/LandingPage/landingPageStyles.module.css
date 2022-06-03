@@ -1,0 +1,36 @@
+.profileWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-left: 7vw;
+  margin-top: 4vw;
+  gap: 5vw;
+  flex-wrap: wrap;
+}
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  height: 55vh;
+  width: 25vw;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  background-color: rgb(0, 0, 255);
+  border: black solid 2px;
+  border-radius: 15px;
+  font-size: 2em;
+}
+
+.text {
+  font-weight: bold;
+  margin-top: 3vh;
+  color: white;
+}
+
+.image {
+  border: solid 1px white;
+  width: 15vw;
+  height: 30vh;
+  margin-top: 4vh;
+}

@@ -12,7 +12,6 @@ function NavBar() {
           <Link href="/">
         <button className={styles.navButtons}>Home</button>
         </Link>
-        <button className={styles.navButtons}>Explore</button>
         <Link href="/ProfilePage">
         <button className={styles.navButtons}>Profile</button>
         </Link>

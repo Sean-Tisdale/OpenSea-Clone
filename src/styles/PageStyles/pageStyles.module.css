@@ -3,7 +3,7 @@
     flex-direction: row;
     margin-left: 7vw;
     margin-top: 4vw;
-    gap: 6vw;
+    gap: 2vw;
     flex-wrap: nowrap;
     }
     
@@ -56,11 +56,32 @@
         text-decoration: underline;
     }
 
+    .sellWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25vh;
+    gap: 2vh;
+    align-items: center;
+    width: 15vw;
+    height: 20vh;
+    }
+
     .sellButton {
         background: none;
         height: 5vh;
         width: 5vw;
-        margin-top: 25vh;
         cursor: pointer;
-        border-radius: 15px;
+        border-radius: 8px;
+        font-size: 1.3em;
+    }
+
+    .priceInput {
+        cursor: text;
+        width: 5vw;
+        height: 4vh;
+        border: 2px black solid;
+        font-size: 1em;
+        border-radius: 8px;
+        text-align: center;
+
     }

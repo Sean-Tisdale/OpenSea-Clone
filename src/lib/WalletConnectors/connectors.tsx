@@ -3,8 +3,8 @@ import { NetworkConnector as Network } from '@web3-react/network-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 
 const RPC_URLS: { [chainId: number]: string } = {
-  1: 'https://mainnet.infura.io/v3/21c6445fc0ca469bbad00815484a9bf5',
-  4: 'https://rinkeby.infura.io/v3/21c6445fc0ca469bbad00815484a9bf5',
+  1: process.env.NEXT_PUBLIC_INFURA_MAINNET_ENDPOINT as string,
+  4: process.env.NEXT_PUBLIC_INFURA_RINKEBY_ENDPOINT as string,
 }
 
 export const injected = new MetaMask({

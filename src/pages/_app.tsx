@@ -6,9 +6,9 @@ import {
   JsonRpcFetchFunc,
   Web3Provider,
 } from '@ethersproject/providers'
-import { MoralisProvider, useMoralis } from "react-moralis"
+import { MoralisProvider, useMoralis } from 'react-moralis'
 import { useEffect } from 'react'
-
+import { ContextProvider } from '../context/useContext'
 
 function getLibrary(
   provider: ExternalProvider | JsonRpcFetchFunc
@@ -18,14 +18,18 @@ function getLibrary(
   return library
 }
 
-
 function MyApp({ Component, pageProps }: AppProps) {
-  return ( 
+  return (
     <Web3ReactProvider getLibrary={getLibrary}>
-        <MoralisProvider serverUrl={process.env.NEXT_PUBLIC_MORALIS_SERVER_URL as string} appId={process.env.NEXT_PUBLIC_MORALIS_APPLICATION_ID as string}>
-  <Component {...pageProps} />
-  </MoralisProvider>
-  </Web3ReactProvider>
+      <MoralisProvider
+        serverUrl={process.env.NEXT_PUBLIC_MORALIS_SERVER_URL as string}
+        appId={process.env.NEXT_PUBLIC_MORALIS_APPLICATION_ID as string}
+      >
+        <ContextProvider>
+          <Component {...pageProps} />
+        </ContextProvider>
+      </MoralisProvider>
+    </Web3ReactProvider>
   )
 }
 
