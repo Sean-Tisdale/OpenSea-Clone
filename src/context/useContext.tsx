@@ -2,24 +2,7 @@ import { createContext, useContext, useState } from 'react'
 
 export type ContextValues = {
   nftData: [{}] | undefined
-  setNftData: React.Dispatch<
-    React.SetStateAction<
-      | [
-          {
-            collectionName: string
-            contractAddress: string
-            description: string
-            image: string
-            name: string
-            openSeaLink: string
-            owner: string
-            tokenId: string
-            tokenType: string
-          }
-        ]
-      | undefined
-    >
-  >
+  setNftData: React.Dispatch<React.SetStateAction<[{}] | undefined>>
   nftCollectionData: [{}] | undefined
   setNftCollectionData: React.Dispatch<React.SetStateAction<[{}] | undefined>>
 }
@@ -40,22 +23,7 @@ interface Props {
 }
 
 export const ContextProvider = ({ children }: Props) => {
-  const [nftData, setNftData] = useState<
-    | [
-        {
-          collectionName: string
-          contractAddress: string
-          description: string
-          image: string
-          name: string
-          openSeaLink: string
-          owner: string
-          tokenId: string
-          tokenType: string
-        }
-      ]
-    | undefined
-  >()
+  const [nftData, setNftData] = useState<[{}] | undefined>()
   const [nftCollectionData, setNftCollectionData] = useState<[{}] | undefined>()
 
   return (
