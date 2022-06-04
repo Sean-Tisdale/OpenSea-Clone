@@ -9,13 +9,16 @@ function NavBar() {
 
   return (
     <div className={styles.navBarWrapper}>
-          <Link href="/">
+      <Link href='/'>
         <button className={styles.navButtons}>Home</button>
-        </Link>
-        <Link href="/ProfilePage">
+      </Link>
+      <Link href='/ForSalePage'>
+        <button className={styles.navButtons}>On Sale</button>
+      </Link>
+      <Link href='/ProfilePage'>
         <button className={styles.navButtons}>Profile</button>
-        </Link>
-        <div className={styles.accountDisplay}>
+      </Link>
+      <div className={styles.accountDisplay}>
         <Wallet />
       </div>
     </div>

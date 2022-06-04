@@ -7,15 +7,16 @@ import styles from './landingPageStyles.module.css'
 const LandingPage = () => {
   GetCollections()
 
-  const { nftCollectionData } = UseAppContext()
+  const { nftCollections } = UseAppContext()
 
   return (
     <>
       <div className={styles.profileWrapper}>
-        {nftCollectionData &&
-          nftCollectionData?.map(
+        {nftCollections &&
+          nftCollections?.map(
             (data: any) =>
-              data?.image_url && (
+              data?.image_url &&
+              data?.primary_asset_contracts?.length === 1 && (
                 <Link href={`/HomePage/${data?.slug}`}>
                   <div key={data?.slug} className={styles.cardWrapper}>
                     <img className={styles.image} src={data?.image_url} />

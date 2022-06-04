@@ -3,15 +3,23 @@ import { createContext, useContext, useState } from 'react'
 export type ContextValues = {
   nftData: [{}] | undefined
   setNftData: React.Dispatch<React.SetStateAction<[{}] | undefined>>
+  nftCollections: [{}] | undefined
+  setNftCollections: React.Dispatch<React.SetStateAction<[{}] | undefined>>
   nftCollectionData: [{}] | undefined
   setNftCollectionData: React.Dispatch<React.SetStateAction<[{}] | undefined>>
+  nftSellOrders: [{}] | undefined
+  setNftSellOrders: React.Dispatch<React.SetStateAction<[{}] | undefined>>
 }
 
 export const DefaultValues: ContextValues = {
   nftData: undefined,
   setNftData: () => {},
+  nftCollections: undefined,
+  setNftCollections: () => {},
   nftCollectionData: undefined,
   setNftCollectionData: () => {},
+  nftSellOrders: undefined,
+  setNftSellOrders: () => {},
 }
 
 export const AppContext = createContext<ContextValues>(DefaultValues)
@@ -24,15 +32,21 @@ interface Props {
 
 export const ContextProvider = ({ children }: Props) => {
   const [nftData, setNftData] = useState<[{}] | undefined>()
+  const [nftCollections, setNftCollections] = useState<[{}] | undefined>()
   const [nftCollectionData, setNftCollectionData] = useState<[{}] | undefined>()
+  const [nftSellOrders, setNftSellOrders] = useState<[{}] | undefined>()
 
   return (
     <AppContext.Provider
       value={{
         nftData,
         setNftData,
+        nftCollections,
+        setNftCollections,
         nftCollectionData,
         setNftCollectionData,
+        nftSellOrders,
+        setNftSellOrders,
       }}
     >
       {children}

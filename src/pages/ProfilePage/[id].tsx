@@ -7,7 +7,6 @@ import { UseAppContext } from '../../context/useContext'
 import { UseMoralisHooks } from '../../lib/Hooks/useMoralisHooks'
 
 function ProfilePageDetails() {
-  const { account } = useWeb3React()
   const [price, setPrice] = useState<number>()
 
   const { sellOrder } = UseMoralisHooks()
@@ -29,7 +28,7 @@ function ProfilePageDetails() {
   }
 
   const handleClick = async () => {
-    await sellOrder(tokenAddress, tokenId, tokenType, price, account)
+    await sellOrder(tokenAddress, tokenId, tokenType, price)
   }
 
   return (
@@ -40,7 +39,7 @@ function ProfilePageDetails() {
           (data: any) =>
             token_id === data?.token_id && (
               <>
-                <div key={token_id} className={styles.cardWrapper}>
+                <div key={data?.token_id} className={styles.cardWrapper}>
                   <img className={styles.image} src={data?.image_url} />
                   <div className={styles.name}>{data?.name}</div>
                   <div className={styles.description}>{data?.description}</div>
