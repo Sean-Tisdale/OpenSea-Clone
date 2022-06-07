@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
-import { useWeb3React } from '@web3-react/core'
 import { UseAppContext } from '../../context/useContext'
 import { UseMoralisHooks } from '../../lib/Hooks/useMoralisHooks'
 
@@ -11,7 +10,7 @@ function ProfilePageDetails() {
 
   const { sellOrder } = UseMoralisHooks()
 
-  const { nftData } = UseAppContext()
+  const { nftData, display, setDisplay } = UseAppContext()
 
   const router = useRouter()
   const query = router.query
@@ -26,6 +25,9 @@ function ProfilePageDetails() {
     e.preventDefault()
     setPrice(e.target.value)
   }
+  useEffect(() => {
+    setDisplay(false)
+  }, [])
 
   const handleClick = async () => {
     await sellOrder(tokenAddress, tokenId, tokenType, price)
@@ -41,39 +43,87 @@ function ProfilePageDetails() {
               <>
                 <div key={data?.token_id} className={styles.cardWrapper}>
                   <img className={styles.image} src={data?.image_url} />
-                  <div className={styles.name}>{data?.name}</div>
-                  <div className={styles.description}>{data?.description}</div>
-                </div>
-                <div className={styles.sellWrapper}>
-                  <button className={styles.sellButton} onClick={handleClick}>
-                    Sell
-                  </button>
-                  <input
-                    className={styles.priceInput}
-                    onChange={handleChange}
-                    placeholder='Price'
-                  />
+
+                  <div>
+                    <div className={styles.descriptionHeader}>Description</div>
+                    <div className={styles.description}>
+                      {data?.description}
+                    </div>
+                  </div>
                 </div>
                 <div className={styles.infoWrapper}>
-                  <div>On Sale? {data?.is_presale ? 'Yes' : 'No'}</div>
-                  <div>Token ID: {(tokenId = data?.token_id)}</div>
-                  <div>
-                    Contract Address:{' '}
-                    {(tokenAddress = data?.asset_contract?.address)}
+                  <div className={styles.infoTopWrapper}>
+                    <div className={styles.collection}>
+                      {data?.collection?.name}
+                      <span className={styles.checkmark}></span>
+                    </div>
+                    <div className={styles.name}>{data?.name}</div>
+                    <div className={styles.ownerWrapper}>
+                      <div>Owned by &nbsp;</div>
+                      <div className={styles.ownerAddress}>
+                        {data?.owner?.address?.substring(0, 4)}...
+                        {data?.owner?.address?.substring(
+                          data?.owner?.address?.length - 4
+                        )}
+                        &nbsp;
+                        <span className={styles.checkmark}></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.buttonWrapper}>
+                    <button className={styles.button} onClick={handleClick}>
+                      Sell
+                    </button>
+                    <input
+                      className={styles.priceInput}
+                      onChange={handleChange}
+                      placeholder='Price'
+                    />
                   </div>
                   <div>
-                    Token Type:{' '}
-                    {(tokenType = data?.asset_contract?.schema_name)}
+                    <div
+                      className={
+                        display ? styles.detailsHeader : styles.detailsHeader1
+                      }
+                      onClick={() => setDisplay(!display)}
+                    >
+                      Details
+                      <div className={display ? 'none' : styles.arrow}>^</div>
+                    </div>
+                    <div
+                      className={
+                        display ? styles.detailsInfo : styles.detailsInfoHidden
+                      }
+                    >
+                      <div>
+                        Token ID:&nbsp;
+                        {(tokenId = data?.token_id)}
+                      </div>
+                      <div style={{ display: 'none' }}>
+                        {(tokenAddress = data?.asset_contract?.address)}
+                      </div>
+                      <div>
+                        Contract Address:&nbsp;
+                        {data?.asset_contract?.address.substring(0, 4)}
+                        ...
+                        {data?.asset_contract?.address?.substring(
+                          data?.asset_contract?.address?.length - 4
+                        )}
+                      </div>
+                      <div>
+                        Token Type:{' '}
+                        {(tokenType = data?.asset_contract?.schema_name)}
+                      </div>
+
+                      <a
+                        href={data?.permalink}
+                        target='_blank'
+                        className={styles.linkTag}
+                      >
+                        OpenSea Link
+                      </a>
+                    </div>
                   </div>
-                  <div>Owner: {data?.owner?.address}</div>
-                  <div>Collection: {data?.collection?.name}</div>
-                  <a
-                    href={data?.permalink}
-                    target='_blank'
-                    className={styles.linkTag}
-                  >
-                    OpenSea Link
-                  </a>
                 </div>
               </>
             )

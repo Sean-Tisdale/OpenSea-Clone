@@ -20,7 +20,10 @@ const LandingPage = () => {
                 <Link href={`/HomePage/${data?.slug}`}>
                   <div key={data?.slug} className={styles.cardWrapper}>
                     <img className={styles.image} src={data?.image_url} />
-                    <div className={styles.text}>{data?.name}</div>
+                    <div className={styles.collectionName}>{data?.name}</div>
+                    <div className={styles.viewCollection}>
+                      Eplore the {data?.name} collection
+                    </div>
                   </div>
                 </Link>
               )

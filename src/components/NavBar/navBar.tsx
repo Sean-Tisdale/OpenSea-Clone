@@ -10,13 +10,13 @@ function NavBar() {
   return (
     <div className={styles.navBarWrapper}>
       <Link href='/'>
-        <button className={styles.navButtons}>Home</button>
+        <div className={styles.navButtons}>Home</div>
       </Link>
       <Link href='/ForSalePage'>
-        <button className={styles.navButtons}>On Sale</button>
+        <div className={styles.navButtons}>On Sale</div>
       </Link>
       <Link href='/ProfilePage'>
-        <button className={styles.navButtons}>Profile</button>
+        <div className={styles.navButtons}>Profile</div>
       </Link>
       <div className={styles.accountDisplay}>
         <Wallet />
