@@ -3,23 +3,23 @@ import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
 import { UseAppContext } from '../../context/useContext'
-import { UseMoralisHooks } from '../../lib/Hooks/useMoralisHooks'
+import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
+import { useWeb3React } from '@web3-react/core'
+import Link from 'next/link'
 
 function ProfilePageDetails() {
   const [price, setPrice] = useState<number>()
-
-  const { sellOrder } = UseMoralisHooks()
-
-  const { nftData, display, setDisplay } = UseAppContext()
+  const { account } = useWeb3React()
+  const { sellOrder } = UseFufillOrdersHook()
+  const { nftData, display, setDisplay, setNftCollections } = UseAppContext()
 
   const router = useRouter()
   const query = router.query
 
-  const token_id = query?.id?.toString()
+  const slug = query?.id?.toString()
 
   let tokenAddress: string
   let tokenId: string
-  let tokenType: string
 
   const handleChange = (e: any) => {
     e.preventDefault()
@@ -27,21 +27,25 @@ function ProfilePageDetails() {
   }
   useEffect(() => {
     setDisplay(false)
+
+    setNftCollections(nftData)
   }, [])
 
-  const handleClick = async () => {
-    await sellOrder(tokenAddress, tokenId, tokenType, price)
+  const handleClick = () => {
+    sellOrder(tokenId, tokenAddress, price as number)
   }
-
   return (
     <>
       <NavBar />
       <div className={styles.nftPageWrapper}>
         {nftData?.map(
           (data: any) =>
-            token_id === data?.token_id && (
+            slug === data?.asset_contract?.address + data?.token_id && (
               <>
-                <div key={data?.token_id} className={styles.cardWrapper}>
+                <div
+                  key={data?.asset_contract?.address + data?.token_id}
+                  className={styles.cardWrapper}
+                >
                   <img className={styles.image} src={data?.image_url} />
 
                   <div>
@@ -53,29 +57,44 @@ function ProfilePageDetails() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <div className={styles.collection}>
-                      {data?.collection?.name}
-                      <span className={styles.checkmark}></span>
-                    </div>
+                    <Link href={`/HomePage/${data?.collection?.slug}`}>
+                      <div className={styles.collection}>
+                        {data?.collection?.name}
+                        <span className={styles.checkmark}></span>
+                      </div>
+                    </Link>
                     <div className={styles.name}>{data?.name}</div>
                     <div className={styles.ownerWrapper}>
                       <div>Owned by &nbsp;</div>
-                      <div className={styles.ownerAddress}>
+                      <a
+                        href={`https://etherscan.io/address/${data?.owner?.address}`}
+                        target='_blank'
+                        className={styles.ownerAddress}
+                      >
                         {data?.owner?.address?.substring(0, 4)}...
                         {data?.owner?.address?.substring(
                           data?.owner?.address?.length - 4
                         )}
                         &nbsp;
                         <span className={styles.checkmark}></span>
-                      </div>
+                      </a>
                     </div>
                   </div>
                   <div className={styles.buttonWrapper}>
-                    <button className={styles.button} onClick={handleClick}>
-                      Sell
+                    <button
+                      className={
+                        data?.is_presale ? styles.onSaleButton : styles.button
+                      }
+                      onClick={handleClick}
+                    >
+                      {data?.is_presale ? 'Item is For Sale' : 'Sell'}
                     </button>
                     <input
-                      className={styles.priceInput}
+                      className={
+                        data?.is_presale
+                          ? styles.noPriceInput
+                          : styles.priceInput
+                      }
                       onChange={handleChange}
                       placeholder='Price'
                     />
@@ -110,10 +129,7 @@ function ProfilePageDetails() {
                           data?.asset_contract?.address?.length - 4
                         )}
                       </div>
-                      <div>
-                        Token Type:{' '}
-                        {(tokenType = data?.asset_contract?.schema_name)}
-                      </div>
+                      <div>Token Type: {data?.asset_contract?.schema_name}</div>
 
                       <a
                         href={data?.permalink}

@@ -1,9 +1,9 @@
+import { useWeb3React } from '@web3-react/core'
 import { useEffect } from 'react'
-import { useMoralis, useMoralisWeb3Api } from 'react-moralis'
 import { UseAppContext } from '../../context/useContext'
 
 function UseGetUserData() {
-  const { account } = useMoralis()
+  const { account } = useWeb3React()
   const axios = require('axios')
 
   const { setNftData } = UseAppContext()

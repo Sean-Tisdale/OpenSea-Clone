@@ -144,6 +144,11 @@
   border-radius: 8px;
   text-align: center;
 }
+
+.noPriceInput {
+  display: none;
+}
+
 .buttonWrapper {
   width: 100%;
   display: flex;
@@ -165,6 +170,16 @@
   cursor: pointer;
   border-radius: 8px;
   font-size: 1em;
+}
+
+.onSaleButton {
+  background: none;
+  margin-left: 3vw;
+  height: 7vh;
+  width: 30vw;
+  border-radius: 8px;
+  font-size: 1.6em;
+  border: none;
 }
 
 .detailsHeader {

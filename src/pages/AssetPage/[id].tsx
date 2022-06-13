@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import NavBar from '../../components/NavBar/navBar'
-import { ethers } from 'ethers'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
+import Link from 'next/link'
 
 function ContractAssetPage() {
   const router = useRouter()
@@ -16,7 +16,6 @@ function ContractAssetPage() {
   useEffect(() => {
     setDisplay(false)
   }, [])
-
   return (
     <>
       <NavBar />
@@ -37,21 +36,28 @@ function ContractAssetPage() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <div className={styles.collection}>
-                      {data?.collection?.name}
-                      <span className={styles.checkmark}></span>
-                    </div>
+                    <Link href={`/HomePage/${data?.collection?.slug}`}>
+                      <div className={styles.collection}>
+                        {data?.collection?.name}
+                        <span className={styles.checkmark}></span>
+                      </div>
+                    </Link>
                     <div className={styles.name}>{data?.name}</div>
                     <div className={styles.ownerWrapper}>
                       <div>Owned by &nbsp;</div>
-                      <div className={styles.ownerAddress}>
+
+                      <a
+                        href={`https://etherscan.io/address/${data?.owner?.address}`}
+                        target='_blank'
+                        className={styles.ownerAddress}
+                      >
                         {data?.owner?.address?.substring(0, 4)}...
                         {data?.owner?.address?.substring(
                           data?.owner?.address?.length - 4
                         )}
                         &nbsp;
                         <span className={styles.checkmark}></span>
-                      </div>
+                      </a>
                     </div>
                   </div>
                   <div className={styles.buttonWrapper}>

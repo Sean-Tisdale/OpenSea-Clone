@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
 import { ethers } from 'ethers'
-import { UseMoralisHooks } from '../../lib/Hooks/useMoralisHooks'
+import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
+import Link from 'next/link'
 
 function ForSalePageDetails() {
   const router = useRouter()
@@ -13,7 +14,7 @@ function ForSalePageDetails() {
   const slug = query?.id?.toString()
 
   const { nftSellOrders, display, setDisplay } = UseAppContext()
-  const { getOrders } = UseMoralisHooks()
+  const { getOrders } = UseFufillOrdersHook()
 
   let tokenToBuyAddress: string
   let tokenID: string
@@ -47,21 +48,27 @@ function ForSalePageDetails() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <div className={styles.collection}>
-                      {data?.asset?.collection?.name}
-                      <span className={styles.checkmark}></span>
-                    </div>
+                    <Link href={`/HomePage/${data?.asset?.collection?.slug}`}>
+                      <div className={styles.collection}>
+                        {data?.asset?.collection?.name}
+                        <span className={styles.checkmark}></span>
+                      </div>
+                    </Link>
                     <div className={styles.name}>{data?.asset?.name}</div>
                     <div className={styles.ownerWrapper}>
                       <div>Owned by &nbsp;</div>
-                      <div className={styles.ownerAddress}>
+                      <a
+                        href={`https://etherscan.io/address/${data?.asset?.owner?.address}`}
+                        target='_blank'
+                        className={styles.ownerAddress}
+                      >
                         {data?.asset?.owner?.address?.substring(0, 4)}...
                         {data?.asset?.owner?.address?.substring(
                           data?.asset?.owner?.address?.length - 4
                         )}
                         &nbsp;
                         <span className={styles.checkmark}></span>
-                      </div>
+                      </a>
                     </div>
                   </div>
                   <div className={styles.buttonWrapper}>
