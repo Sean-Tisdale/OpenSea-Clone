@@ -4,6 +4,8 @@ import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
 import Link from 'next/link'
+import { ethers } from 'ethers'
+import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 
 function ContractAssetPage() {
   const router = useRouter()
@@ -12,7 +14,14 @@ function ContractAssetPage() {
   const token_ID = query?.id?.toString()
 
   const { nftCollectionData, display, setDisplay } = UseAppContext()
+  const { getOrders } = UseFufillOrdersHook()
 
+  let tokenToBuyAddress: string
+  let tokenID: string
+
+  const handleClick = async () => {
+    await getOrders(tokenToBuyAddress, tokenID)
+  }
   useEffect(() => {
     setDisplay(false)
   }, [])
@@ -36,7 +45,7 @@ function ContractAssetPage() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <Link href={`/HomePage/${data?.collection?.slug}`}>
+                    <Link href={`/CollectionPage/${data?.collection?.slug}`}>
                       <div className={styles.collection}>
                         {data?.collection?.name}
                         <span className={styles.checkmark}></span>
@@ -61,13 +70,28 @@ function ContractAssetPage() {
                     </div>
                   </div>
                   <div className={styles.buttonWrapper}>
-                    <a
-                      href={data?.permalink}
-                      target='_blank'
-                      className={styles.collection}
-                    >
-                      View on OpenSea
-                    </a>
+                    {data?.sell_orders === null &&
+                    data?.seaport_sell_orders === null ? (
+                      <>
+                        <a
+                          href={data?.permalink}
+                          target='_blank'
+                          className={styles.collection}
+                        >
+                          View on OpenSea
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          Price: {ethers.utils.formatEther(data?.base_price)}{' '}
+                          ETH
+                        </div>
+                        <button className={styles.button} onClick={handleClick}>
+                          Buy Now
+                        </button>
+                      </>
+                    )}
                   </div>
                   <div>
                     <div
@@ -84,7 +108,13 @@ function ContractAssetPage() {
                         display ? styles.detailsInfo : styles.detailsInfoHidden
                       }
                     >
-                      <div>Token ID: {data?.token_id}</div>
+                      <div>
+                        Token ID:
+                        {(tokenID = data?.token_id)}
+                      </div>
+                      <div style={{ display: 'none' }}>
+                        {(tokenToBuyAddress = data?.asset_contract?.address)}
+                      </div>
                       <div>
                         Contract Address:&nbsp;
                         {data?.asset_contract?.address.substring(0, 4)}

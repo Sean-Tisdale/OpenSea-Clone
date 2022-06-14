@@ -6,37 +6,45 @@ import { UseAppContext } from '../../context/useContext'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 import { useWeb3React } from '@web3-react/core'
 import Link from 'next/link'
+import { ethers } from 'ethers'
+import SellAsset from '../../components/SellAsset/sellAsset'
+import { WyvernSchemaName } from 'opensea-js/lib/types'
 
 function ProfilePageDetails() {
-  const [price, setPrice] = useState<number>()
   const { account } = useWeb3React()
-  const { sellOrder } = UseFufillOrdersHook()
-  const { nftData, display, setDisplay, setNftCollections } = UseAppContext()
+  const {
+    nftData,
+    display,
+    setDisplay,
+    setNftCollections,
+    sellDisplay,
+    setSellDisplay,
+    setTokenAddress,
+    setTokenId,
+    setTokenType,
+  } = UseAppContext()
 
   const router = useRouter()
   const query = router.query
 
   const slug = query?.id?.toString()
 
-  let tokenAddress: string
-  let tokenId: string
-
-  const handleChange = (e: any) => {
-    e.preventDefault()
-    setPrice(e.target.value)
-  }
+  let tokenContractAddress: string
+  let tokenID: string
+  let tokenTYPE: WyvernSchemaName
   useEffect(() => {
     setDisplay(false)
-
     setNftCollections(nftData)
+    setTokenAddress(tokenContractAddress)
+    setTokenId(tokenID)
+    setTokenType(tokenTYPE)
   }, [])
 
-  const handleClick = () => {
-    sellOrder(tokenId, tokenAddress, price as number)
-  }
   return (
     <>
+      <SellAsset />
       <NavBar />
+
       <div className={styles.nftPageWrapper}>
         {nftData?.map(
           (data: any) =>
@@ -55,9 +63,10 @@ function ProfilePageDetails() {
                     </div>
                   </div>
                 </div>
+
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <Link href={`/HomePage/${data?.collection?.slug}`}>
+                    <Link href={`/CollectionPage/${data?.collection?.slug}`}>
                       <div className={styles.collection}>
                         {data?.collection?.name}
                         <span className={styles.checkmark}></span>
@@ -80,24 +89,27 @@ function ProfilePageDetails() {
                       </a>
                     </div>
                   </div>
+
                   <div className={styles.buttonWrapper}>
-                    <button
-                      className={
-                        data?.is_presale ? styles.onSaleButton : styles.button
-                      }
-                      onClick={handleClick}
-                    >
-                      {data?.is_presale ? 'Item is For Sale' : 'Sell'}
-                    </button>
-                    <input
-                      className={
-                        data?.is_presale
-                          ? styles.noPriceInput
-                          : styles.priceInput
-                      }
-                      onChange={handleChange}
-                      placeholder='Price'
-                    />
+                    {data?.sell_orders === null &&
+                    data?.seaport_sell_orders === null ? (
+                      <div
+                        className={styles.onSaleButton}
+                        onClick={() => setSellDisplay(!sellDisplay)}
+                      >
+                        Sell Asset
+                      </div>
+                    ) : (
+                      <>
+                        <a
+                          href={data?.permalink}
+                          target='_blank'
+                          className={styles.collection}
+                        >
+                          Item is For Sale
+                        </a>
+                      </>
+                    )}
                   </div>
                   <div>
                     <div
@@ -116,10 +128,10 @@ function ProfilePageDetails() {
                     >
                       <div>
                         Token ID:&nbsp;
-                        {(tokenId = data?.token_id)}
+                        {(tokenID = data?.token_id)}
                       </div>
                       <div style={{ display: 'none' }}>
-                        {(tokenAddress = data?.asset_contract?.address)}
+                        {(tokenContractAddress = data?.asset_contract?.address)}
                       </div>
                       <div>
                         Contract Address:&nbsp;
@@ -129,7 +141,10 @@ function ProfilePageDetails() {
                           data?.asset_contract?.address?.length - 4
                         )}
                       </div>
-                      <div>Token Type: {data?.asset_contract?.schema_name}</div>
+                      <div>
+                        Token Type:{' '}
+                        {(tokenTYPE = data?.asset_contract?.schema_name)}
+                      </div>
 
                       <a
                         href={data?.permalink}

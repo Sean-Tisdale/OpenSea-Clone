@@ -2,6 +2,7 @@ import { Provider, Web3Provider } from '@ethersproject/providers'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { useWeb3React } from '@web3-react/core'
 import { OpenSeaPort, Network } from 'opensea-js'
+import { WyvernSchemaName } from 'opensea-js/lib/types'
 
 export function UseFufillOrdersHook() {
   const { library, account } = useWeb3React<Web3Provider>()
@@ -39,16 +40,22 @@ export function UseFufillOrdersHook() {
   const sellOrder = async (
     tokenId: string,
     tokenAddress: string,
-    price: number
+    tokenType: WyvernSchemaName,
+    startPrice: number,
+    endPrice: number,
+    time: number
   ) => {
+    const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * time)
     const createSellOrder = await seaport.createSellOrder({
       asset: {
         tokenId,
         tokenAddress,
+        schemaName: tokenType,
       },
       accountAddress,
-      startAmount: price,
-      endAmount: price,
+      startAmount: startPrice,
+      endAmount: endPrice,
+      expirationTime,
     })
     console.log(createSellOrder, 'sell order')
   }

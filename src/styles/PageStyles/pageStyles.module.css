@@ -145,10 +145,6 @@
   text-align: center;
 }
 
-.noPriceInput {
-  display: none;
-}
-
 .buttonWrapper {
   width: 100%;
   display: flex;
@@ -161,25 +157,36 @@
   padding-left: 8vw;
   gap: 9vw;
   font-size: 1.6em;
-  font-weight: 600;
 }
 .button {
   background: none;
+  border: rgb(173, 173, 173) solid 1px;
   height: 7vh;
   width: 10vw;
   cursor: pointer;
   border-radius: 8px;
   font-size: 1em;
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.6);
 }
-
+.button:hover {
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.6);
+}
 .onSaleButton {
-  background: none;
-  margin-left: 3vw;
-  height: 7vh;
-  width: 30vw;
-  border-radius: 8px;
+  cursor: pointer;
+  border: rgb(173, 173, 173) solid 1px;
+  margin-left: 10vw;
+  height: 12vh;
+  width: 17vw;
+  line-height: 12vh;
+  text-align: center;
   font-size: 1.6em;
-  border: none;
+  font-weight: 400;
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.6);
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+}
+.onSaleButton:hover {
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.6);
 }
 
 .detailsHeader {

@@ -6,7 +6,7 @@ import styles from '../../components/UserProfile/userProfileStyles.module.css'
 import { UseAppContext } from '../../context/useContext'
 import UseGetCollectionHook from '../../lib/Hooks/useGetCollectionDataHook'
 
-function CollectionPage() {
+function CollectionDetails() {
   const router = useRouter()
   const query = router.query
 
@@ -17,7 +17,11 @@ function CollectionPage() {
 
   useEffect(() => {
     nftCollections?.map((data: any) => {
-      if (slug === data?.slug) {
+      if (
+        slug === data?.slug ||
+        slug === data?.collection?.slug ||
+        slug === data?.asset?.collection?.slug
+      ) {
         retrieveCollection(data)
       }
     })
@@ -41,4 +45,4 @@ function CollectionPage() {
   )
 }
 
-export default CollectionPage
+export default CollectionDetails

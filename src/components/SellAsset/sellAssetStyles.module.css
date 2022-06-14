@@ -1,0 +1,194 @@
+.container {
+  height: 142vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.766);
+  z-index: 1;
+  position: absolute;
+}
+.hide {
+  display: none;
+}
+
+.innerBox {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 85vh;
+  width: 57vw;
+  z-index: 2;
+  background-color: white;
+  border: 1px black solid;
+  border-radius: 15px;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.closeButton {
+  cursor: pointer;
+  background: none;
+  align-self: flex-end;
+  border: none;
+  padding: 2%;
+  font-size: 1.6em;
+}
+.title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: -3vh;
+}
+
+.typeSelectWrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  margin-top: 5vh;
+  margin-left: 2vw;
+}
+
+.typeWrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  width: 25vw;
+  height: 7vh;
+  border-radius: 5px;
+  border: rgb(173, 173, 173) solid 1px;
+  background-color: rgb(251, 253, 255);
+}
+
+.saleType {
+  width: 50%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 6vh;
+  height: 100%;
+  font-size: 1.2em;
+}
+
+.saleType:hover {
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.6);
+}
+
+.selectedType {
+  width: 50%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 6vh;
+  height: 100%;
+  font-size: 1.2em;
+  background-color: rgb(187, 187, 187);
+}
+
+.notSelected {
+  display: none;
+}
+
+.help {
+  border: 1px grey solid;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  align-self: center;
+  margin-left: 0.5vw;
+}
+
+.auctionInputWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  margin-top: 5vh;
+  gap: 8vh;
+}
+
+.priceWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-left: 1.5vw;
+  gap: 2vw;
+  font-size: 1.4em;
+  align-items: center;
+}
+.priceInput {
+  cursor: text;
+  height: 6vh;
+  width: 15vw;
+  border: rgb(173, 173, 173) solid 1px;
+  font-size: 0.8em;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.durationWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  font-size: 1.4em;
+  align-items: center;
+}
+.dropButton {
+  background-color: rgb(224, 224, 224);
+  width: 15vw;
+  border: 1px red solid;
+  height: 6vh;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  line-height: 6vh;
+  border-radius: 10px;
+}
+
+.durationMenu {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.timeSelect {
+  display: none;
+  position: absolute;
+  width: 15vw;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.timeSelect div {
+  padding: 1%;
+  text-decoration: none;
+  display: block;
+  font-size: 0.8em;
+  background-color: rgb(255, 255, 255);
+}
+
+.timeSelect div:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.durationMenu:hover .timeSelect {
+  display: block;
+}
+
+.durationMenu:hover .dropButton {
+  background-color: rgb(202, 202, 202);
+}
+
+.createListingButton {
+  background-color: rgba(39, 147, 255, 0.612);
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 17vh;
+  width: 13vw;
+  align-self: center;
+  margin-bottom: 5vh;
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.6);
+}
+
+.createListingButton:hover {
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.6);
+  background-color: rgb(39, 147, 255);
+}

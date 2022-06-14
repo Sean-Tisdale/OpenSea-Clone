@@ -12,7 +12,7 @@ function UseGetUserData() {
     try {
       const url = `https://testnets-api.opensea.io/api/v1/assets?owner=${
         account as string
-      }&order_direction=desc&offset=0&limit=30`
+      }&order_direction=desc&offset=0&limit=30&include_orders=true`
       await axios.get(url).then(function (response: any) {
         setNftData(response.data.assets)
       })

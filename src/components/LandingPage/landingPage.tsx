@@ -17,7 +17,7 @@ const LandingPage = () => {
             (data: any) =>
               data?.image_url &&
               data?.primary_asset_contracts?.length === 1 && (
-                <Link href={`/HomePage/${data?.slug}`}>
+                <Link href={`/CollectionPage/${data?.slug}`}>
                   <div key={data?.slug} className={styles.cardWrapper}>
                     <img className={styles.image} src={data?.image_url} />
                     <div className={styles.collectionName}>{data?.name}</div>

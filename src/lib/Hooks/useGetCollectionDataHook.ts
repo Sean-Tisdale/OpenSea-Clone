@@ -17,15 +17,25 @@ function UseGetCollectionHook() {
           console.log(error, 'error')
         }
       })
-    } else {
+    } else if (data?.asset) {
       try {
-        const url = `https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=${data?.asset_contract?.address}&order_direction=desc&offset=0&limit=30`
+        const url = `https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=${data?.asset?.asset_contract?.address}&order_direction=desc&offset=0&limit=30`
         await axios.get(url).then(function (response: any) {
-          console.log(response, 'response')
           setNftCollectionData(response.data.assets)
         })
       } catch (error) {
         console.log(error, 'error')
+      }
+    } else {
+      {
+        try {
+          const url = `https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=${data?.asset_contract?.address}&order_direction=desc&offset=0&limit=30`
+          await axios.get(url).then(function (response: any) {
+            setNftCollectionData(response.data.assets)
+          })
+        } catch (error) {
+          console.log(error, 'error')
+        }
       }
     }
   }

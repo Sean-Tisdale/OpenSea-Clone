@@ -13,7 +13,8 @@ function ForSalePageDetails() {
 
   const slug = query?.id?.toString()
 
-  const { nftSellOrders, display, setDisplay } = UseAppContext()
+  const { nftSellOrders, display, setDisplay, setNftCollections } =
+    UseAppContext()
   const { getOrders } = UseFufillOrdersHook()
 
   let tokenToBuyAddress: string
@@ -25,6 +26,7 @@ function ForSalePageDetails() {
 
   useEffect(() => {
     setDisplay(false)
+    setNftCollections(nftSellOrders)
   }, [])
 
   return (
@@ -48,7 +50,9 @@ function ForSalePageDetails() {
                 </div>
                 <div className={styles.infoWrapper}>
                   <div className={styles.infoTopWrapper}>
-                    <Link href={`/HomePage/${data?.asset?.collection?.slug}`}>
+                    <Link
+                      href={`/CollectionPage/${data?.asset?.collection?.slug}`}
+                    >
                       <div className={styles.collection}>
                         {data?.asset?.collection?.name}
                         <span className={styles.checkmark}></span>
