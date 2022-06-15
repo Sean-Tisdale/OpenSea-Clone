@@ -1,5 +1,4 @@
-import { Provider, Web3Provider } from '@ethersproject/providers'
-import HDWalletProvider from '@truffle/hdwallet-provider'
+import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { OpenSeaPort, Network } from 'opensea-js'
 import { WyvernSchemaName } from 'opensea-js/lib/types'
@@ -8,8 +7,6 @@ export function UseFufillOrdersHook() {
   const { library, account } = useWeb3React<Web3Provider>()
   const provider = library?.provider as any
 
-  const signer = account as any
-
   const seaport = new OpenSeaPort(
     provider,
     {
@@ -17,7 +14,7 @@ export function UseFufillOrdersHook() {
     },
     arg => console.log(arg)
   )
-  const accountAddress = signer
+  const accountAddress = account as string
   const getOrders = async (tokenAddress: string, tokenId: string) => {
     const order = await seaport.api.getOrder({
       asset_contract_address: tokenAddress,
@@ -37,6 +34,26 @@ export function UseFufillOrdersHook() {
       .catch(err => console.log(err))
     console.log('tx hash: ' + transactionHash)
   }
+
+  const createOffer = async (
+    tokenId: string,
+    tokenAddress: string,
+    schemaName: WyvernSchemaName,
+    offerAmount: number
+  ) => {
+    const offer = await seaport
+      .createBuyOrder({
+        asset: {
+          tokenId,
+          tokenAddress,
+          schemaName,
+        },
+        accountAddress,
+        startAmount: offerAmount,
+      })
+      .catch(err => console.log(err))
+    console.log('tx hash: ' + offer)
+  }
   const sellOrder = async (
     tokenId: string,
     tokenAddress: string,
@@ -46,19 +63,22 @@ export function UseFufillOrdersHook() {
     time: number
   ) => {
     const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * time)
-    const createSellOrder = await seaport.createSellOrder({
-      asset: {
-        tokenId,
-        tokenAddress,
-        schemaName: tokenType,
-      },
-      accountAddress,
-      startAmount: startPrice,
-      endAmount: endPrice,
-      expirationTime,
-    })
-    console.log(createSellOrder, 'sell order')
+
+    const createSellOrder = await seaport
+      .createSellOrder({
+        asset: {
+          tokenId,
+          tokenAddress,
+          schemaName: tokenType,
+        },
+        accountAddress,
+        startAmount: startPrice,
+        endAmount: endPrice,
+        expirationTime,
+      })
+      .catch(err => console.log(err))
+    console.log('tx hash: ' + createSellOrder)
   }
 
-  return { getOrders, sellOrder }
+  return { getOrders, sellOrder, createOffer }
 }

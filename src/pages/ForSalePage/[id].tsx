@@ -1,13 +1,15 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
 import { ethers } from 'ethers'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 import Link from 'next/link'
+import { WyvernSchemaName } from 'opensea-js/lib/types'
 
 function ForSalePageDetails() {
+  const [offerAmount, setOfferAmount] = useState<number>()
   const router = useRouter()
   const query = router.query
 
@@ -15,13 +17,29 @@ function ForSalePageDetails() {
 
   const { nftSellOrders, display, setDisplay, setNftCollections } =
     UseAppContext()
-  const { getOrders } = UseFufillOrdersHook()
+  const { getOrders, createOffer } = UseFufillOrdersHook()
 
+  let tokenType: WyvernSchemaName
   let tokenToBuyAddress: string
   let tokenID: string
 
-  const handleClick = async () => {
-    await getOrders(tokenToBuyAddress, tokenID)
+  const handleClick = async (e: any) => {
+    console.log(e.target.innerText, 'id')
+
+    if (e.target.innerText === 'Make Offer') {
+      await createOffer(
+        tokenID,
+        tokenToBuyAddress,
+        tokenType,
+        offerAmount as number
+      )
+    } else if (e.target.innerText === 'Buy Now') {
+      await getOrders(tokenToBuyAddress, tokenID)
+    }
+  }
+  const handleChange = (e: any) => {
+    e.preventDefault()
+    setOfferAmount(e.target.value)
   }
 
   useEffect(() => {
@@ -64,6 +82,7 @@ function ForSalePageDetails() {
                       <a
                         href={`https://etherscan.io/address/${data?.asset?.owner?.address}`}
                         target='_blank'
+                        rel='noreferrer'
                         className={styles.ownerAddress}
                       >
                         {data?.asset?.owner?.address?.substring(0, 4)}...
@@ -82,6 +101,14 @@ function ForSalePageDetails() {
                     <button className={styles.button} onClick={handleClick}>
                       Buy Now
                     </button>
+                    <button className={styles.button} onClick={handleClick}>
+                      Make Offer
+                    </button>
+                    <input
+                      className={styles.priceInput}
+                      onChange={handleChange}
+                      placeholder='Amount'
+                    />
                   </div>
                   <div>
                     <div
@@ -108,6 +135,12 @@ function ForSalePageDetails() {
                             data?.asset?.asset_contract?.address)
                         }
                       </div>
+                      <div style={{ display: 'none' }}>
+                        {
+                          (tokenToBuyAddress =
+                            data?.asset?.asset_contract?.address)
+                        }
+                      </div>
                       <div>
                         Contract Address:&nbsp;
                         {data?.asset?.asset_contract?.address.substring(0, 4)}
@@ -123,6 +156,7 @@ function ForSalePageDetails() {
                       <a
                         href={data?.asset?.permalink}
                         target='_blank'
+                        rel='noreferrer'
                         className={styles.linkTag}
                       >
                         OpenSea Link

@@ -1,26 +1,43 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
 import Link from 'next/link'
 import { ethers } from 'ethers'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
+import { WyvernSchemaName } from 'opensea-js/lib/types'
 
 function ContractAssetPage() {
+  const [offerAmount, setOfferAmount] = useState<number>()
+
   const router = useRouter()
-  const query = router.query
+  const query = router?.query
 
   const token_ID = query?.id?.toString()
 
   const { nftCollectionData, display, setDisplay } = UseAppContext()
-  const { getOrders } = UseFufillOrdersHook()
+  const { getOrders, createOffer } = UseFufillOrdersHook()
 
+  let tokenType: WyvernSchemaName
   let tokenToBuyAddress: string
   let tokenID: string
 
-  const handleClick = async () => {
-    await getOrders(tokenToBuyAddress, tokenID)
+  const handleClick = async (e: any) => {
+    if (e.target.innerText === 'Make Offer') {
+      await createOffer(
+        tokenID,
+        tokenToBuyAddress,
+        tokenType,
+        offerAmount as number
+      )
+    } else if (e.target.innerText === 'Buy Now') {
+      await getOrders(tokenToBuyAddress, tokenID)
+    }
+  }
+  const handleChange = (e: any) => {
+    e.preventDefault()
+    setOfferAmount(e.target.value)
   }
   useEffect(() => {
     setDisplay(false)
@@ -58,6 +75,7 @@ function ContractAssetPage() {
                       <a
                         href={`https://etherscan.io/address/${data?.owner?.address}`}
                         target='_blank'
+                        rel='noreferrer'
                         className={styles.ownerAddress}
                       >
                         {data?.owner?.address?.substring(0, 4)}...
@@ -73,13 +91,14 @@ function ContractAssetPage() {
                     {data?.sell_orders === null &&
                     data?.seaport_sell_orders === null ? (
                       <>
-                        <a
-                          href={data?.permalink}
-                          target='_blank'
-                          className={styles.collection}
-                        >
-                          View on OpenSea
-                        </a>
+                        <button className={styles.button} onClick={handleClick}>
+                          Make Offer
+                        </button>
+                        <input
+                          className={styles.priceInput}
+                          onChange={handleChange}
+                          placeholder='Amount'
+                        />
                       </>
                     ) : (
                       <>
@@ -90,6 +109,14 @@ function ContractAssetPage() {
                         <button className={styles.button} onClick={handleClick}>
                           Buy Now
                         </button>
+                        <button className={styles.button} onClick={handleClick}>
+                          Make Offer
+                        </button>
+                        <input
+                          className={styles.priceInput}
+                          onChange={handleChange}
+                          placeholder='Amount'
+                        />
                       </>
                     )}
                   </div>
@@ -111,6 +138,9 @@ function ContractAssetPage() {
                       <div>
                         Token ID:
                         {(tokenID = data?.token_id)}
+                      </div>
+                      <div style={{ display: 'none' }}>
+                        {(tokenToBuyAddress = data?.asset_contract?.address)}
                       </div>
                       <div style={{ display: 'none' }}>
                         {(tokenToBuyAddress = data?.asset_contract?.address)}

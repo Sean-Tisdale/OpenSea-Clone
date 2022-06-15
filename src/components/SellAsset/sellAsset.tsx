@@ -75,7 +75,8 @@ const SellAsset = () => {
             </div>
             <a
               href='https://en.wikipedia.org/wiki/Dutch_auction'
-              target={'_blank'}
+              target='_blank'
+              rel='noreferrer'
               className={styles.help}
             >
               ?

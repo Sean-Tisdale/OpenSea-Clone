@@ -78,6 +78,7 @@ function ProfilePageDetails() {
                       <a
                         href={`https://etherscan.io/address/${data?.owner?.address}`}
                         target='_blank'
+                        rel='noreferrer'
                         className={styles.ownerAddress}
                       >
                         {data?.owner?.address?.substring(0, 4)}...
@@ -104,6 +105,7 @@ function ProfilePageDetails() {
                         <a
                           href={data?.permalink}
                           target='_blank'
+                          rel='noreferrer'
                           className={styles.collection}
                         >
                           Item is For Sale
@@ -149,6 +151,7 @@ function ProfilePageDetails() {
                       <a
                         href={data?.permalink}
                         target='_blank'
+                        rel='noreferrer'
                         className={styles.linkTag}
                       >
                         OpenSea Link

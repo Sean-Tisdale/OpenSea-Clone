@@ -154,9 +154,9 @@
   border: rgb(173, 173, 173) solid 1px;
   background-color: rgb(251, 253, 255);
   align-items: center;
-  padding-left: 8vw;
-  gap: 9vw;
-  font-size: 1.6em;
+  padding-left: 1.5vw;
+  gap: 3vw;
+  font-size: 1.4em;
 }
 .button {
   background: none;
