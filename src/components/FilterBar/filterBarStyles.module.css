@@ -1,0 +1,121 @@
+.filterWrapper {
+  width: 60%;
+  margin: auto;
+}
+
+.filterHeaderWrapper {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 2vh;
+  height: 7vh;
+  border: rgb(173, 173, 173) solid 1px;
+  font-size: 1.5em;
+  border-radius: 15px 15px 0px 0px;
+  background-color: rgb(255, 255, 255);
+  justify-content: space-between;
+  padding-left: 3vw;
+  font-weight: 600;
+  padding-right: 3vw;
+  line-height: 7vh;
+}
+
+.filterHeaderWrapper1 {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin: auto;
+  height: 7vh;
+  margin-top: 2vh;
+  border: rgb(173, 173, 173) solid 1px;
+  font-size: 1.5em;
+  border-radius: 15px;
+  font-weight: 600;
+  background-color: rgb(255, 255, 255);
+  justify-content: space-between;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  line-height: 7vh;
+}
+
+.arrow {
+  transform: rotate(180deg);
+}
+
+.filterHeaderWrapper1:hover {
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.6);
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  border-radius: 0px 0px 15px 15px;
+  border: rgb(173, 173, 173) solid 1px;
+  background-color: rgb(251, 253, 255);
+  border-top: none;
+  height: 40vh;
+}
+
+.filtersHidden {
+  display: none;
+}
+
+.filters div {
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.filters h1 {
+  margin: auto;
+  text-align: center;
+  font-size: 2em;
+  border-bottom: rgb(173, 173, 173) solid 2px;
+  padding: 4%;
+}
+
+.filters div:nth-child(2) {
+  border-left: rgb(173, 173, 173) solid 1px;
+  border-right: rgb(173, 173, 173) solid 1px;
+}
+
+.filters body {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 40%;
+  margin: auto;
+  gap: 1.5vh;
+  margin-top: 1.5vh;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.filters input {
+  height: 4vh;
+}
+
+.collectionNames {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5%;
+  border-bottom: rgb(173, 173, 173) solid 1px;
+}
+
+.collectionNames:hover {
+  background-color: rgb(236, 238, 241);
+}
+.button {
+  background: none;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 3.5vh;
+  margin-top: 1vh;
+  border: rgb(173, 173, 173) solid 2px;
+}
+
+.button:hover {
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.6);
+}

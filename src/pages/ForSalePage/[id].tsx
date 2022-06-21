@@ -24,8 +24,6 @@ function ForSalePageDetails() {
   let tokenID: string
 
   const handleClick = async (e: any) => {
-    console.log(e.target.innerText, 'id')
-
     if (e.target.innerText === 'Make Offer') {
       await createOffer(
         tokenID,
@@ -54,7 +52,9 @@ function ForSalePageDetails() {
         {nftSellOrders?.map(
           (data: any) =>
             slug ===
-              data?.asset?.asset_contract?.address + data?.asset?.token_id && (
+              data?.asset?.asset_contract?.address +
+                data?.asset?.token_id +
+                data?.id && (
               <>
                 <div key={slug} className={styles.cardWrapper}>
                   <img className={styles.image} src={data?.asset?.image_url} />

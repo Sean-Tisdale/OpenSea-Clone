@@ -22,6 +22,9 @@ export type ContextValues = {
   setTokenType: React.Dispatch<
     React.SetStateAction<WyvernSchemaName | undefined>
   >
+  filteredData: [{}] | undefined
+  filterCollection: true | false
+  setFilterCollection: React.Dispatch<React.SetStateAction<true | false>>
 }
 
 export const DefaultValues: ContextValues = {
@@ -43,6 +46,9 @@ export const DefaultValues: ContextValues = {
   setTokenId: () => {},
   tokenType: undefined,
   setTokenType: () => {},
+  filteredData: undefined,
+  filterCollection: true,
+  setFilterCollection: () => {},
 }
 
 export const AppContext = createContext<ContextValues>(DefaultValues)
@@ -65,6 +71,8 @@ export const ContextProvider = ({ children }: Props) => {
   const [tokenType, setTokenType] = useState<WyvernSchemaName | undefined>(
     undefined
   )
+  let filteredData: [{}] | undefined = [{}]
+  const [filterCollection, setFilterCollection] = useState<boolean>(true)
 
   return (
     <AppContext.Provider
@@ -87,6 +95,9 @@ export const ContextProvider = ({ children }: Props) => {
         setTokenId,
         tokenType,
         setTokenType,
+        filteredData,
+        filterCollection,
+        setFilterCollection,
       }}
     >
       {children}
