@@ -54,7 +54,11 @@ function ContractAssetPage() {
               token_ID === data?.token_id && (
                 <>
                   <div key={data?.token_id} className={styles.cardWrapper}>
-                    <img className={styles.image} src={data?.image_url} />
+                    <img
+                      className={styles.image}
+                      src={data?.image_url}
+                      alt='no image'
+                    />
 
                     <div>
                       <div className={styles.descriptionHeader}>
@@ -78,9 +82,9 @@ function ContractAssetPage() {
                         <div>Owned by &nbsp;</div>
 
                         <a
-                          // href={`https://etherscan.io/address/${data?.owner?.address}`}
-                          // target='_blank'
-                          // rel='noreferrer'
+                          href={`https://etherscan.io/address/${data?.owner?.address}`}
+                          target='_blank'
+                          rel='noreferrer'
                           className={styles.ownerAddress}
                         >
                           {data?.owner?.address?.substring(0, 4)}...
