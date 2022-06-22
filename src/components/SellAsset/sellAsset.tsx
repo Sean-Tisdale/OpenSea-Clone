@@ -27,7 +27,7 @@ const SellAsset = () => {
   }
   const handleClick = async () => {
     if (timedAuction) {
-      await order(
+      await order?.(
         tokenId,
         tokenAddress,
         tokenType as WyvernSchemaName,
@@ -36,7 +36,7 @@ const SellAsset = () => {
         timeValue as number
       )
     } else {
-      await order(
+      await order?.(
         tokenId,
         tokenAddress,
         tokenType as WyvernSchemaName,

@@ -27,9 +27,14 @@ function ContractAssetPage() {
 
   const handleClick = async (e: any) => {
     if (e.target.innerText === 'Make Offer') {
-      await offer(tokenID, tokenToBuyAddress, tokenType, offerAmount as number)
+      await offer?.(
+        tokenID,
+        tokenToBuyAddress,
+        tokenType,
+        offerAmount as number
+      )
     } else if (e.target.innerText === 'Buy Now') {
-      await order(tokenToBuyAddress, tokenID)
+      await order?.(tokenToBuyAddress, tokenID)
     }
   }
   const handleChange = (e: any) => {
