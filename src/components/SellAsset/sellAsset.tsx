@@ -74,14 +74,6 @@ const SellAsset = () => {
                 Timed Auction
               </div>
             </div>
-            <a
-              href='https://en.wikipedia.org/wiki/Dutch_auction'
-              target='_blank'
-              rel='noreferrer'
-              className={styles.help}
-            >
-              ?
-            </a>
           </div>
 
           <div className={styles.auctionInputWrapper}>
