@@ -78,9 +78,9 @@ function ContractAssetPage() {
                         <div>Owned by &nbsp;</div>
 
                         <a
-                          href={`https://etherscan.io/address/${data?.owner?.address}`}
-                          target='_blank'
-                          rel='noreferrer'
+                          // href={`https://etherscan.io/address/${data?.owner?.address}`}
+                          // target='_blank'
+                          // rel='noreferrer'
                           className={styles.ownerAddress}
                         >
                           {data?.owner?.address?.substring(0, 4)}...
