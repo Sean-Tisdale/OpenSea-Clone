@@ -4,12 +4,12 @@ const nextConfig = {
   externals: {
     FileReader: 'FileReader',
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // typescript: {
+  //   ignoreBuildErrors: true,
+  // },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
   webpack5: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
