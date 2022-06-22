@@ -14,7 +14,8 @@ const SellAsset = () => {
   const { sellDisplay, setSellDisplay, tokenAddress, tokenId, tokenType } =
     UseAppContext()
 
-  const { sellOrder } = UseFufillOrdersHook()
+  const data = UseFufillOrdersHook()
+  const order = data?.sellOrder
 
   const handleStartChange = (e: any) => {
     e.preventDefault()
@@ -26,7 +27,7 @@ const SellAsset = () => {
   }
   const handleClick = async () => {
     if (timedAuction) {
-      await sellOrder(
+      await order(
         tokenId,
         tokenAddress,
         tokenType as WyvernSchemaName,
@@ -35,7 +36,7 @@ const SellAsset = () => {
         timeValue as number
       )
     } else {
-      await sellOrder(
+      await order(
         tokenId,
         tokenAddress,
         tokenType as WyvernSchemaName,

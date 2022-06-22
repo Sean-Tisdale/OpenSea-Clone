@@ -2,15 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   externals: {
-    FileReader: "FileReader",
+    FileReader: 'FileReader',
   },
-
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack5: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.fallback = { fs: false };
+      config.resolve.fallback = { fs: false }
     }
-    return config;
+    return config
   },
 }
 

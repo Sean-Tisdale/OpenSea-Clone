@@ -11,7 +11,6 @@ import SellAsset from '../../components/SellAsset/sellAsset'
 import { WyvernSchemaName } from 'opensea-js/lib/types'
 
 function ProfilePageDetails() {
-  const { account } = useWeb3React()
   const {
     nftData,
     display,
