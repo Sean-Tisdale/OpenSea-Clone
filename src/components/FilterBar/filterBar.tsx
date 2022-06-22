@@ -118,6 +118,7 @@ const FilterBar = () => {
             <h1>Collections</h1>
             {nftSellOrders?.map((data: any) => (
               <div
+                key={data?.id}
                 className={styles.collectionNames}
                 onClick={handleCollectionClick}
               >

@@ -11,7 +11,7 @@ import { WyvernSchemaName } from 'opensea-js/lib/types'
 function ForSalePageDetails() {
   const [offerAmount, setOfferAmount] = useState<number>()
   const router = useRouter()
-  const query = router.query
+  const query = router?.query
 
   const slug = query?.id?.toString()
 
@@ -24,20 +24,20 @@ function ForSalePageDetails() {
   let tokenID: string
 
   const handleClick = async (e: any) => {
-    if (e.target.innerText === 'Make Offer') {
+    if (e?.target?.innerText === 'Make Offer') {
       await createOffer(
         tokenID,
         tokenToBuyAddress,
         tokenType,
         offerAmount as number
       )
-    } else if (e.target.innerText === 'Buy Now') {
+    } else if (e?.target?.innerText === 'Buy Now') {
       await getOrders(tokenToBuyAddress, tokenID)
     }
   }
   const handleChange = (e: any) => {
     e.preventDefault()
-    setOfferAmount(e.target.value)
+    setOfferAmount(e?.target?.value)
   }
 
   useEffect(() => {
