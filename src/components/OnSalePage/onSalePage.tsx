@@ -7,13 +7,12 @@ import { ethers } from 'ethers'
 import { useEffect } from 'react'
 
 const OnSalePage = () => {
-  const { nftSellOrders, setNftSellOrders, filteredData, filterCollection } =
-    UseAppContext()
+  const { nftSellOrders, filterCollection } = UseAppContext()
 
-  const { openSeaOrders } = UseRetrieveOrdersHook()
-
+  const data = UseRetrieveOrdersHook()
+  const order = data?.openSeaOrders
   useEffect(() => {
-    openSeaOrders()
+    order?.()
   }, [])
 
   return (

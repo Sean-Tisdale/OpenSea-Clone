@@ -45,7 +45,7 @@ function ForSalePage(props: any) {
   return (
     <>
       <NavBar />
-      {/* <div className={styles.nftPageWrapper}>
+      <div className={styles.nftPageWrapper}>
         {nftSellOrders &&
           nftSellOrders?.map(
             (data: any) =>
@@ -173,7 +173,7 @@ function ForSalePage(props: any) {
                 </>
               )
           )}
-      </div> */}
+      </div>
     </>
   )
 }
