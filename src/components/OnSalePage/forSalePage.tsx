@@ -14,24 +14,24 @@ function ForSalePage(props: any) {
   const { nftSellOrders, display, setDisplay, setNftCollections } =
     UseAppContext()
 
-  const data = UseFufillOrdersHook()
-  const order = data?.getOrders
-  const offer = data?.createOffer
+  // const data = UseFufillOrdersHook()
+  // const order = data?.getOrders
+  // const offer = data?.createOffer
   let tokenType: WyvernSchemaName
   let tokenToBuyAddress: string
   let tokenID: string
 
   const handleClick = async (e: any) => {
-    if (e?.target?.innerText === 'Make Offer') {
-      await offer?.(
-        tokenID,
-        tokenToBuyAddress,
-        tokenType,
-        offerAmount as number
-      )
-    } else if (e?.target?.innerText === 'Buy Now') {
-      await order?.(tokenToBuyAddress, tokenID)
-    }
+    // if (e?.target?.innerText === 'Make Offer') {
+    //   await offer?.(
+    //     tokenID,
+    //     tokenToBuyAddress,
+    //     tokenType,
+    //     offerAmount as number
+    //   )
+    // } else if (e?.target?.innerText === 'Buy Now') {
+    //   await order?.(tokenToBuyAddress, tokenID)
+    // }
   }
   const handleChange = (e: any) => {
     e.preventDefault()
