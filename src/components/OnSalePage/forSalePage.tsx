@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
@@ -104,7 +103,7 @@ function ForSalePage(props: any) {
                       </div>
                       <div className={styles.buttonWrapper}>
                         <div>
-                          Price: {ethers.utils.formatEther(data?.base_price)}{' '}
+                          Price: {ethers?.utils.formatEther(data?.base_price)}{' '}
                           ETH
                         </div>
                         <button className={styles.button} onClick={handleClick}>
