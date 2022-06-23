@@ -2,55 +2,56 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
-import styles from '../../styles/PageStyles/pageStyles.module.css'
-import Link from 'next/link'
-import { ethers } from 'ethers'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
-import { WyvernSchemaName } from 'opensea-js/lib/types'
 import AssetPage from '../../components/AssetPage/assetPage'
+import { GetServerSideProps } from 'next'
+import UseGetCollectionHook from '../../lib/Hooks/useGetCollectionDataHook'
 
-function ContractAssetPage() {
-  // const [offerAmount, setOfferAmount] = useState<number>()
+let collection: any = []
+let nfts: any
+let current: any
+function ContractAssetPage(props: any) {
+  const context = UseAppContext()
+  const { retrieveCollection } = UseGetCollectionHook()
+  const router = useRouter()
+  const query = router?.query
 
-  // const router = useRouter()
-  // const query = router?.query
+  const token_ID = query?.id?.toString()
 
-  // const token_ID = query?.id?.toString()
+  collection = context?.nftCollectionData
+  console.log(token_ID, 'token id')
+  console.log(collection, 'colleciton dataaaa')
+  current = collection?.map(async (data: any) => {
+    if (
+      token_ID === data?.token_id ||
+      token_ID === data?.collection?.token_id ||
+      token_ID === data?.asset?.collection?.token_id
+    ) {
+      console.log(data, 'data from contract')
+      return data
+    }
+  })
+  // nfts = context?.nftCollections
 
-  // const { nftCollectionData, display, setDisplay } = UseAppContext()
+  console.log(current?.data, 'collection')
 
-  // const data = UseFufillOrdersHook()
-  // const order = data?.getOrders
-  // const offer = data?.createOffer
-  // let tokenType: WyvernSchemaName
-  // let tokenToBuyAddress: string
-  // let tokenID: string
-
-  // const handleClick = async (e: any) => {
-  //   if (e.target.innerText === 'Make Offer') {
-  //     await offer?.(
-  //       tokenID,
-  //       tokenToBuyAddress,
-  //       tokenType,
-  //       offerAmount as number
-  //     )
-  //   } else if (e.target.innerText === 'Buy Now') {
-  //     await order?.(tokenToBuyAddress, tokenID)
-  //   }
-  // }
-  // const handleChange = (e: any) => {
-  //   e.preventDefault()
-  //   setOfferAmount(e.target.value)
-  // }
-  // useEffect(() => {
-  //   setDisplay(false)
-  // }, [])
   return (
     <>
       <NavBar />
-      <AssetPage />
+      <AssetPage props={props} />
     </>
   )
+}
+export const getServerSideProps: GetServerSideProps = async context => {
+  // const { params } = context
+
+  // const res = await fetch(
+  //   `https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=0xd2704c09129a5f331ef46f40a803c10b64998642&order_direction=desc&offset=0&limit=30`
+  // )
+
+  // const stuff = await res.json()
+
+  return { props: { token: context?.params?.id?.toString() } }
 }
 
 export default ContractAssetPage

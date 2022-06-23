@@ -8,15 +8,13 @@ import { ethers } from 'ethers'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 import { WyvernSchemaName } from 'opensea-js/lib/types'
 
-function AssetPage() {
+function AssetPage(props: any) {
   const [offerAmount, setOfferAmount] = useState<number>()
 
-  const router = useRouter()
-  const query = router?.query
-
-  const token_ID = query?.id?.toString()
-
+  console.log(props, 'props')
+  console.log(props?.props?.token, 'props token')
   const { nftCollectionData, display, setDisplay } = UseAppContext()
+  console.log(nftCollectionData)
 
   const data = UseFufillOrdersHook()
   const order = data?.getOrders
@@ -50,7 +48,7 @@ function AssetPage() {
         {nftCollectionData &&
           nftCollectionData?.map(
             (data: any) =>
-              token_ID === data?.token_id && (
+              props?.props?.token === data?.token_id && (
                 <>
                   <div key={data?.token_id} className={styles.cardWrapper}>
                     <img className={styles.image} src={data?.image_url} />

@@ -15,6 +15,10 @@ function CollectionDetails() {
   const { nftCollections, nftCollectionData } = UseAppContext()
   const { retrieveCollection } = UseGetCollectionHook()
 
+  const context = UseAppContext()
+
+  const collection = context?.nftCollectionData
+  console.log(collection, 'collection')
   useEffect(() => {
     nftCollections?.map((data: any) => {
       if (
