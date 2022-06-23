@@ -59,6 +59,7 @@ function ForSalePage(props: any) {
                     <img
                       className={styles.image}
                       src={data?.asset?.image_url}
+                      alt='no image'
                     />
 
                     <div>
