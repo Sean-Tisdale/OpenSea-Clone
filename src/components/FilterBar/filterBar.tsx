@@ -17,8 +17,8 @@ const FilterBar = () => {
     filterCollection,
   } = UseAppContext()
 
-  const { openSeaOrders } = UseRetrieveOrdersHook()
-
+  const data = UseRetrieveOrdersHook()
+  const order = data?.openSeaOrders
   const handleMinChange = (e: any) => {
     e.preventDefault()
     setMinPrice(e.target.value)
@@ -53,7 +53,7 @@ const FilterBar = () => {
   }
 
   const handleFilterReset = () => {
-    openSeaOrders()
+    order?.()
   }
   const handleStatusClick = (e: any) => {
     if (e.target.innerText === 'Buy Now') {
@@ -116,15 +116,16 @@ const FilterBar = () => {
           </div>
           <div>
             <h1>Collections</h1>
-            {nftSellOrders?.map((data: any) => (
-              <div
-                key={data?.id}
-                className={styles.collectionNames}
-                onClick={handleCollectionClick}
-              >
-                {data?.asset?.collection?.name}
-              </div>
-            ))}
+            {nftSellOrders &&
+              nftSellOrders?.map((data: any) => (
+                <div
+                  key={data?.id}
+                  className={styles.collectionNames}
+                  onClick={handleCollectionClick}
+                >
+                  {data?.asset?.collection?.name}
+                </div>
+              ))}
           </div>
         </div>
       </div>

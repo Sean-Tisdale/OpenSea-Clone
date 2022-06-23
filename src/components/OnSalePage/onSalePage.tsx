@@ -3,22 +3,22 @@ import { UseAppContext } from '../../context/useContext'
 import UseRetrieveOrdersHook from '../../lib/Hooks/useRetrieveOrdersHook'
 import styles from '../UserProfile/userProfileStyles.module.css'
 import FilterBar from '../../components/FilterBar/filterBar'
-// import { ethers } from 'ethers'
+import { ethers } from 'ethers'
 import { useEffect } from 'react'
 
 const OnSalePage = () => {
-  // const { nftSellOrders, filterCollection } = UseAppContext()
+  const { nftSellOrders, filterCollection } = UseAppContext()
 
-  // const data = UseRetrieveOrdersHook()
-  // const order = data?.openSeaOrders
-  // useEffect(() => {
-  //   order?.()
-  // }, [])
+  const data = UseRetrieveOrdersHook()
+  const order = data?.openSeaOrders
+  useEffect(() => {
+    order?.()
+  }, [])
 
   return (
     <>
       <FilterBar />
-      {/* <div className={styles.profileWrapper}>
+      <div className={styles.profileWrapper}>
         {filterCollection
           ? nftSellOrders?.map((data: any) => (
               <div
@@ -74,7 +74,7 @@ const OnSalePage = () => {
                 </div>
               </div>
             ))}
-      </div> */}
+      </div>
     </>
   )
 }
