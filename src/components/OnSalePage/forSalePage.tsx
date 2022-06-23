@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import NavBar from '../../components/NavBar/navBar'
 import { UseAppContext } from '../../context/useContext'
 import styles from '../../styles/PageStyles/pageStyles.module.css'
+import { ethers } from 'ethers'
 import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 import Link from 'next/link'
 import { WyvernSchemaName } from 'opensea-js/lib/types'
@@ -44,7 +45,7 @@ function ForSalePage(props: any) {
   return (
     <>
       <NavBar />
-      <div className={styles.nftPageWrapper}>
+      {/* <div className={styles.nftPageWrapper}>
         {nftSellOrders &&
           nftSellOrders?.map(
             (data: any) =>
@@ -99,7 +100,7 @@ function ForSalePage(props: any) {
                     </div>
                     <div className={styles.buttonWrapper}>
                       <div>
-                        {/* Price: {ethers?.utils.formatEther(data?.base_price)} ETH */}
+                        Price: {ethers.utils.formatEther(data?.base_price)} ETH
                       </div>
                       <button className={styles.button} onClick={handleClick}>
                         Buy Now
@@ -172,7 +173,7 @@ function ForSalePage(props: any) {
                 </>
               )
           )}
-      </div>
+      </div> */}
     </>
   )
 }
