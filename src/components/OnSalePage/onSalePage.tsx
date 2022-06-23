@@ -9,11 +9,11 @@ import { useEffect } from 'react'
 const OnSalePage = () => {
   const { nftSellOrders, filterCollection } = UseAppContext()
 
-  const data = UseRetrieveOrdersHook()
-  const order = data?.openSeaOrders
-  useEffect(() => {
-    order?.()
-  }, [])
+  // const data = UseRetrieveOrdersHook()
+  // const order = data?.openSeaOrders
+  // useEffect(() => {
+  //   order?.()
+  // }, [])
 
   return (
     <>
