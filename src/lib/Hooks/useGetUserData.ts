@@ -20,8 +20,6 @@ function UseGetUserData() {
       console.log(error, 'error')
     }
   }
-  useEffect(() => {
-    openSeaCall()
-  }, [])
+  return { openSeaCall }
 }
 export default UseGetUserData

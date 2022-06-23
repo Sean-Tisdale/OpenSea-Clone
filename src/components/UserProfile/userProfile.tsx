@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { UseAppContext } from '../../context/useContext'
 import UseGetUserData from '../../lib/Hooks/useGetUserData'
 import NavBar from '../NavBar/navBar'
@@ -9,8 +9,12 @@ import styles from './userProfileStyles.module.css'
 function UserProfile() {
   const { account } = useWeb3React()
 
-  UseGetUserData()
+  const data = UseGetUserData()
+  const order = data?.openSeaCall
 
+  useEffect(() => {
+    order?.()
+  }, [])
   const { nftData } = UseAppContext()
 
   return (
