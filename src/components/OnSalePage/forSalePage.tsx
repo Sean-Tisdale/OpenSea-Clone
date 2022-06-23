@@ -8,11 +8,8 @@ import { UseFufillOrdersHook } from '../../lib/Hooks/useFufillOrdersHook'
 import Link from 'next/link'
 import { WyvernSchemaName } from 'opensea-js/lib/types'
 
-function ForSalePage() {
+function ForSalePage(props: any) {
   const [offerAmount, setOfferAmount] = useState<number>()
-  const router = useRouter()
-  const query = router?.query
-  const slug = query?.id?.toString()
 
   const { nftSellOrders, display, setDisplay, setNftCollections } =
     UseAppContext()
@@ -52,12 +49,12 @@ function ForSalePage() {
       <div className={styles.nftPageWrapper}>
         {nftSellOrders?.map(
           (data: any) =>
-            slug ===
+            props?.props?.token ===
               data?.asset?.asset_contract?.address +
                 data?.asset?.token_id +
                 data?.id && (
               <>
-                <div key={slug} className={styles.cardWrapper}>
+                <div key={props?.props?.token} className={styles.cardWrapper}>
                   <img className={styles.image} src={data?.asset?.image_url} />
 
                   <div>

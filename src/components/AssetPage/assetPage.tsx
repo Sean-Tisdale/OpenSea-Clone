@@ -11,10 +11,7 @@ import { WyvernSchemaName } from 'opensea-js/lib/types'
 function AssetPage(props: any) {
   const [offerAmount, setOfferAmount] = useState<number>()
 
-  console.log(props, 'props')
-  console.log(props?.props?.token, 'props token')
   const { nftCollectionData, display, setDisplay } = UseAppContext()
-  console.log(nftCollectionData)
 
   const data = UseFufillOrdersHook()
   const order = data?.getOrders
