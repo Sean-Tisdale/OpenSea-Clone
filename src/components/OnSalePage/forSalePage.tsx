@@ -131,9 +131,19 @@ function ForSalePage(props: any) {
                             : styles.detailsInfoHidden
                         }
                       >
+                        <div style={{ display: 'none' }}>
+                          {' '}
+                          {(tokenID = data?.asset?.token_id)}
+                        </div>
                         <div>
                           Token ID:&nbsp;
-                          {(tokenID = data?.asset?.token_id)}
+                          {data?.asset?.token_id?.substring(0, 4)}
+                          {data?.asset?.token_id?.length > 8
+                            ? '...' +
+                              data?.asset?.token_id?.substring(
+                                data?.asset?.token_id?.length - 4
+                              )
+                            : null}
                         </div>
                         <div style={{ display: 'none' }}>
                           {

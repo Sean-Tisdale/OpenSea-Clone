@@ -16,7 +16,6 @@ function UserProfile() {
     order?.()
   }, [])
   const { nftData } = UseAppContext()
-
   return (
     <>
       <NavBar />

@@ -146,14 +146,18 @@ function AssetPage(props: any) {
                         }
                       >
                         <div>
-                          Token ID:
+                          Token ID:&nbsp;
+                          {data?.token_id?.substring(0, 4)}
+                          {data?.token_id?.length > 8
+                            ? '...' +
+                              data?.token_id?.substring(
+                                data?.token_id?.length - 4
+                              )
+                            : null}
+                        </div>
+                        <div style={{ display: 'none' }}>
+                          {(tokenToBuyAddress = data?.asset_contract?.address)}
                           {(tokenID = data?.token_id)}
-                        </div>
-                        <div style={{ display: 'none' }}>
-                          {(tokenToBuyAddress = data?.asset_contract?.address)}
-                        </div>
-                        <div style={{ display: 'none' }}>
-                          {(tokenToBuyAddress = data?.asset_contract?.address)}
                         </div>
                         <div>
                           Contract Address:&nbsp;

@@ -36,6 +36,7 @@ function CollectionDetails() {
             <Link href={`/AssetPage/${data?.token_id}`}>
               <img className={styles.image} src={data?.image_original_url} />
             </Link>
+            <div>ID: {data?.token_id}</div>
             <div className={styles.name}>{data?.name}</div>
             <div className={styles.description}>{data?.description}</div>
           </div>

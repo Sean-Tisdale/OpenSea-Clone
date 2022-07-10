@@ -14,7 +14,6 @@ const OnSalePage = () => {
   useEffect(() => {
     order?.()
   }, [])
-
   return (
     <>
       <FilterBar />
@@ -65,6 +64,7 @@ const OnSalePage = () => {
                 >
                   <img className={styles.image} src={data?.asset?.image_url} />
                 </Link>
+
                 <div className={styles.name}>{data?.asset?.name}</div>
                 <div className={styles.name}>
                   Price:{' '}

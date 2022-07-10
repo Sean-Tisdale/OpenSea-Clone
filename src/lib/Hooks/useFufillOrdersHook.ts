@@ -7,7 +7,7 @@ import { AbstractProvider, provider } from 'web3-core'
 
 export function UseFufillOrdersHook() {
   const { library, account } = useWeb3React<Web3Provider>()
-  // const proider: AbstractProvider = library?.provider as AbstractProvider
+
   if (account) {
     const seaport = new OpenSeaPort(
       library?.provider as any,

@@ -129,10 +129,17 @@ function ProfilePageDetails() {
                     >
                       <div>
                         Token ID:&nbsp;
-                        {(tokenID = data?.token_id)}
+                        {data?.token_id?.substring(0, 4)}
+                        {data?.token_id?.length > 8
+                          ? '...' +
+                            data?.token_id?.substring(
+                              data?.token_id?.length - 4
+                            )
+                          : null}
                       </div>
                       <div style={{ display: 'none' }}>
                         {(tokenContractAddress = data?.asset_contract?.address)}
+                        {(tokenID = data?.token_id)}
                       </div>
                       <div>
                         Contract Address:&nbsp;

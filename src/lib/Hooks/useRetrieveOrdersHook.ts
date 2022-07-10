@@ -17,9 +17,6 @@ function UseRetrieveOrdersHook() {
       console.log(error, 'error')
     }
   }
-  // useEffect(() => {
-  //   openSeaOrders()
-  // }, [])
   return { openSeaOrders }
 }
 
